@@ -10,7 +10,7 @@
 <p> <h3>:six: Apply concepts related to raycasting; </h3></p>
 <p> <h3>:six: Simulate a simple event-driven pseudo 3D game engine and </h3></p>
 <p> <h3>:six: HAVE FUN !!! :six::six::six:</h3> </p>
-<h3> - ⚡: You can reach me anytime to get in touch about my current projects or studies!</h3>
+<h3> ⚡: You can reach me anytime to get in touch about my current projects or studies!</h3>
 
 <h2>🛠️ Languages:</h2>
 <div id="langs">
