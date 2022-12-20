@@ -46,7 +46,8 @@ class Player:
         
         if keys[pg.K_RIGHT]:
             self.angle += PLAYER_ROT_SPEED * self.game.delta_time
-
+        self.angle %= math.tau
+        
     def draw(self):
         pg.draw.line(self.game.screen, 'red', (self.x * 100, self.y * 100),
         (self.x * 100 + WIDTH * math.cos(self.angle),
