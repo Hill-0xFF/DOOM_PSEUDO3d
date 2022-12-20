@@ -41,6 +41,7 @@ class Player:
         # update player coordinates
         # self.x += dx
         # self.y += dy
+        
         self.collision_detection_wall(dx, dy)
 
         if keys[pg.K_LEFT]:

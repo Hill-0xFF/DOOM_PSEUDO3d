@@ -1,5 +1,4 @@
 import pygame as pg
-# from player import *
 from settings import *
 import math
 
@@ -62,7 +61,7 @@ class Raycasting:
 
             # PROJECTION HEIGHT
             projection_height = SCREEN_DISTANCE / (depth + 0.0001)
-            
+
             # SHOW WALLS
             color = [255 / (1 + depth ** 5 * 0.00002)] * 3
             pg.draw.rect(self.game.screen, color,
