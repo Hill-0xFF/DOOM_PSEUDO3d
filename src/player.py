@@ -57,7 +57,7 @@ class Player:
     def collision_detection_wall(self , dx, dy):
         if self.hit_wall(int(self.x + dx), int(self.y)):
             self.x += dx
-        if self.hit_wall(int(self.x), int(self.y + dx)):
+        if self.hit_wall(int(self.x), int(self.y + dy)):
             self.y += dy
     
     def draw(self):
