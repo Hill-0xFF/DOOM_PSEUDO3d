@@ -57,8 +57,12 @@ class Raycasting:
             # pg.draw.line(self.game.screen, 'white', (100 * pos_x, 100 * pos_y),
             # (100 * pos_x + 100 * depth * cos_a, 100 * pos_y + 100 * depth * sin_a), 2)
             
+            # REMOVING EYEFISH EFFECT
+            depth *= math.cos(self.game.player.angle - ray_angle)
+
             # PROJECTION HEIGHT
             projection_height = SCREEN_DISTANCE / (depth + 0.0001)
+            
             # SHOW WALLS
             color = [255 / (1 + depth ** 5 * 0.00002)] * 3
             pg.draw.rect(self.game.screen, color,
