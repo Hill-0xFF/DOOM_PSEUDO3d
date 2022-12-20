@@ -38,16 +38,28 @@ class Player:
             dx += -speed_sin
             dy += speed_cos
 
-        self.x += dx
-        self.y += dy
+        # update player coordinates
+        # self.x += dx
+        # self.y += dy
+        self.collision_detection_wall(dx, dy)
 
         if keys[pg.K_LEFT]:
             self.angle -= PLAYER_ROT_SPEED * self.game.delta_time
         
         if keys[pg.K_RIGHT]:
             self.angle += PLAYER_ROT_SPEED * self.game.delta_time
-        self.angle %= math.tau
         
+        self.angle %= math.tau
+
+    def hit_wall(self, x, y):
+        return (x, y) not in self.game.map.world_map
+
+    def collision_detection_wall(self , dx, dy):
+        if self.hit_wall(int(self.x + dx), int(self.y)):
+            self.x += dx
+        if self.hit_wall(int(self.x), int(self.y + dx)):
+            self.y += dy
+    
     def draw(self):
         pg.draw.line(self.game.screen, 'red', (self.x * 100, self.y * 100),
         (self.x * 100 + WIDTH * math.cos(self.angle),
