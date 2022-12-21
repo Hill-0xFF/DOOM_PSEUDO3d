@@ -13,12 +13,22 @@ class Raycasting:
         self.objects_torender = []
         for ray, values in enumerate(self.raycasting_result):
             depth, projection_height, texture, offset = values
-            wall_column = self.textures[texture].subsurface(
-                offset * (TEXTURE_SIZE - SCALE), 0, SCALE, TEXTURE_SIZE
-            )
-            wall_column = pg.transform.scale(wall_column, (SCALE, projection_height))
-            wall_pos = (ray * SCALE, HALF_HEIGHT - projection_height // 2)
+            if projection_height < HEIGHT:
+                wall_column = self.textures[texture].subsurface(
+                    offset * (TEXTURE_SIZE - SCALE), 0, SCALE, TEXTURE_SIZE
+                )
+                wall_column = pg.transform.scale(wall_column, (SCALE, projection_height))
+                wall_pos = (ray * SCALE, HALF_HEIGHT - projection_height // 2)
 
+            else: 
+                texture_height = TEXTURE_SIZE * HEIGHT / projection_height
+                wall_column = self.textures[texture].subsurface(
+                    offset * (TEXTURE_SIZE - SCALE), HALF_TEXTURE_SIZE - texture_height // 2,
+                    SCALE, texture_height
+                )
+                wall_column = pg.transform.scale(wall_column, (SCALE, HEIGHT))
+                wall_pos = (ray * SCALE, 0)
+                
             self.objects_torender.append((depth, wall_column, wall_pos))
 
     def raycast(self):
