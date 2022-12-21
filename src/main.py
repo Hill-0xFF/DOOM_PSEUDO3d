@@ -3,6 +3,7 @@ import sys
 from settings import *
 from map import *
 from player import *
+from object_renderer import *
 from raycasting import *
 
 class Game:
@@ -16,6 +17,7 @@ class Game:
     def new_game(self):
         self.map = Map(self)
         self.player = Player(self)
+        self.object_renderer = ObjectRenderer(self)
         self.raycasting = Raycasting(self)
 
     def update(self):
