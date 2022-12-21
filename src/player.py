@@ -6,6 +6,7 @@ PLAYER_POS = 1.5, 5
 PLAYER_ANGLE = 0
 PLAYER_SPEED = 0.004
 PLAYER_ROT_SPEED = 0.002
+PLAYER_SIZE_SCALE = 60
 
 class Player:
     def __init__(self, game):
@@ -56,9 +57,10 @@ class Player:
         return (x, y) not in self.game.map.world_map
 
     def collision_detection_wall(self , dx, dy):
-        if self.hit_wall(int(self.x + dx), int(self.y)):
+        scale = PLAYER_SIZE_SCALE / self.game.delta_time
+        if self.hit_wall(int(self.x + dx * scale), int(self.y)):
             self.x += dx
-        if self.hit_wall(int(self.x), int(self.y + dy)):
+        if self.hit_wall(int(self.x), int(self.y + dy * scale)):
             self.y += dy
     
     # def draw(self):
