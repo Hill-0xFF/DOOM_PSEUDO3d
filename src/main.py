@@ -22,11 +22,13 @@ class Game:
         self.object_renderer = ObjectRenderer(self)
         self.raycasting = Raycasting(self)
         self.static_sprite = Sprite(self)
+        self.animatedSprite = AnimatedSprite(self)
 
     def update(self):
         self.player.update()
         self.raycasting.update()
         self.static_sprite.update()
+        self.animatedSprite.update()
         pg.display.flip()
         self.delta_time = self.clock.tick(FPS)
         pg.display.set_caption(f'Hill0x77 - DOOM: PSEUDO3d {self.clock.get_fps() :.1f}')
