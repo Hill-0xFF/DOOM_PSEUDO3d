@@ -3,11 +3,13 @@ import sys
 from settings import *
 from map import *
 from player import *
+from object_renderer import *
 from raycasting import *
 
 class Game:
     def __init__(self):
         pg.init()
+        pg.mouse.set_visible(False)
         self.screen = pg.display.set_mode(RES)
         self.clock = pg.time.Clock()
         self.delta_time = 1
@@ -16,6 +18,7 @@ class Game:
     def new_game(self):
         self.map = Map(self)
         self.player = Player(self)
+        self.object_renderer = ObjectRenderer(self)
         self.raycasting = Raycasting(self)
 
     def update(self):
@@ -26,7 +29,9 @@ class Game:
         pg.display.set_caption(f'Hill0x77 - DOOM: PSEUDO3d {self.clock.get_fps() :.1f}')
 
     def draw(self):
-        self.screen.fill('black')
+        # NOW WITH CEILING, DISABLE BLACK BACKGROUND
+        # self.screen.fill('black')
+        self.object_renderer.draw()
         # self.map.draw()
         # self.player.draw()
 

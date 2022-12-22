@@ -6,6 +6,7 @@ PLAYER_POS = 1.5, 5
 PLAYER_ANGLE = 0
 PLAYER_SPEED = 0.004
 PLAYER_ROT_SPEED = 0.002
+PLAYER_SIZE_SCALE = 60
 
 class Player:
     def __init__(self, game):
@@ -41,13 +42,16 @@ class Player:
         # update player coordinates
         # self.x += dx
         # self.y += dy
+        
         self.collision_detection_wall(dx, dy)
 
-        if keys[pg.K_LEFT]:
-            self.angle -= PLAYER_ROT_SPEED * self.game.delta_time
+
+        # DISABLED LEFT AND RIGHT ARROW KEYS
+        # if keys[pg.K_LEFT]:
+        #     self.angle -= PLAYER_ROT_SPEED * self.game.delta_time
         
-        if keys[pg.K_RIGHT]:
-            self.angle += PLAYER_ROT_SPEED * self.game.delta_time
+        # if keys[pg.K_RIGHT]:
+        #     self.angle += PLAYER_ROT_SPEED * self.game.delta_time
         
         self.angle %= math.tau
 
@@ -55,20 +59,37 @@ class Player:
         return (x, y) not in self.game.map.world_map
 
     def collision_detection_wall(self , dx, dy):
-        if self.hit_wall(int(self.x + dx), int(self.y)):
+        scale = PLAYER_SIZE_SCALE / self.game.delta_time
+        if self.hit_wall(int(self.x + dx * scale), int(self.y)):
             self.x += dx
-        if self.hit_wall(int(self.x), int(self.y + dy)):
+        if self.hit_wall(int(self.x), int(self.y + dy * scale)):
             self.y += dy
     
-    def draw(self):
-        # pg.draw.line(self.game.screen, 'red', (self.x * 100, self.y * 100),
-        # (self.x * 100 + WIDTH * math.cos(self.angle),
-        # self.y * 100 + WIDTH * math.sin(self.angle)), 2)
+    # def draw(self):
+        # pg.draw.line(self.game.screen, 'red', (self.x * 20, self.y * 20),
+        # (self.x * 20 + WIDTH * math.cos(self.angle),
+        # self.y * 20 + WIDTH * math.sin(self.angle)), 2)
         
-        pg.draw.circle(self.game.screen, 'green', (self.x * 100, self.y * 100), 15)
+        # pg.draw.circle(self.game.screen, 'green', (self.x * 20, self.y * 20), 5)
+
+    def mouse_control(self):
+        mouse_x, mouse_y = pg.mouse.get_pos()
+        if mouse_x < MOUSE_BORDER_LEFT or mouse_x > MOUSE_BORDER_RIGHT:
+            pg.mouse.set_pos([HALF_WIDTH, HALF_HEIGHT])
+        self.relative = pg.mouse.get_rel()[0]
+        self.relative = max(-MOUSE_RELATIVE_MOVEMENT, min(MOUSE_RELATIVE_MOVEMENT, self.relative))
+        self.angle += self.relative * MOUSE_SENSITIVITY * self.game.delta_time
+
+        # SOME ATTEMPTS TO GIVE A FEEL OF HEADS UP AND DOWN
+        if mouse_y > MOUSE_BORDER_DOWN or mouse_y < MOUSE_BORDER_UP:
+            pg.mouse.set_pos([HALF_WIDTH, HALF_HEIGHT])
+        self.relative = pg.mouse.get_rel()[0]
+        # self.relative = min(MOUSE_RELATIVE_MOVEMENT, max(MOUSE_RELATIVE_MOVEMENT, self.relative))
+        self.angle += self.relative * MOUSE_SENSITIVITY * self.game.delta_time
 
     def update(self):
         self.movement()
+        self.mouse_control()
 
     @property
     def pos(self):
