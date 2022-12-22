@@ -20,7 +20,7 @@ class ObjectRenderer:
         pg.draw.rect(self.screen, FLOOR_COLOR, (0, HALF_HEIGHT, WIDTH, HEIGHT))
 
     def render_game_objects(self):
-        list_objects = self.game.raycasting.objects_torender
+        list_objects = sorted(self.game.raycasting.objects_torender, key= lambda t: t[0], reverse = True)
         for depth, image, pos in list_objects:
             self.screen.blit(image, pos)
 
