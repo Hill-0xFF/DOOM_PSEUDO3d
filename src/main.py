@@ -29,7 +29,8 @@ class Game:
         pg.display.set_caption(f'Hill0x77 - DOOM: PSEUDO3d {self.clock.get_fps() :.1f}')
 
     def draw(self):
-        self.screen.fill('black')
+        # NOW WITH CEILING, DISABLE BLACK BACKGROUND
+        # self.screen.fill('black')
         self.object_renderer.draw()
         # self.map.draw()
         # self.player.draw()

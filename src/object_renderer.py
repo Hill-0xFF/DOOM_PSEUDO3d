@@ -6,9 +6,18 @@ class ObjectRenderer:
         self.game = game
         self.screen = game.screen
         self.wall_textures = self.load_wall_textures()
+        self.ceiling = self.get_texture('src/resources/textures/moon.png', (WIDTH, HALF_HEIGHT))
+        self.ceiling_offset = 0
 
     def draw(self):
+        self.draw_ceil()
         self.render_game_objects()
+
+    def draw_ceil(self):
+        self.ceiling_offset = (self.ceiling_offset + 4.5 * self.game.player.relative) % WIDTH
+        self.screen.blit(self.ceiling, (-self.ceiling_offset, 0))
+        self.screen.blit(self.ceiling, (-self.ceiling_offset + WIDTH, 0))
+        pg.draw.rect(self.screen, FLOOR_COLOR, (0, HALF_HEIGHT, WIDTH, HEIGHT))
 
     def render_game_objects(self):
         list_objects = self.game.raycasting.objects_torender
