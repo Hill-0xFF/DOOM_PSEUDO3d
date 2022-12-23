@@ -7,6 +7,7 @@ from object_renderer import *
 from raycasting import *
 from sprite import *
 from object_handler import *
+from weapons import *
 
 class Game:
     def __init__(self):
@@ -25,6 +26,7 @@ class Game:
         # self.static_sprite = Sprite(self)
         # self.animatedSprite = AnimatedSprite(self)
         self.object_handler = ObjectHandler(self)
+        self.weapons = Weapons(self)
 
     def update(self):
         self.player.update()
@@ -32,6 +34,7 @@ class Game:
         # self.static_sprite.update()
         # self.animatedSprite.update()
         self.object_handler.update()
+        self.weapons.update()
         pg.display.flip()
         self.delta_time = self.clock.tick(FPS)
         pg.display.set_caption(f'Hill0x77 - DOOM: PSEUDO3d {self.clock.get_fps() :.1f}')
@@ -39,15 +42,17 @@ class Game:
     def draw(self):
         # NOW WITH CEILING, DISABLE BLACK BACKGROUND
         # self.screen.fill('black')
-        self.object_renderer.draw()
         # self.map.draw()
         # self.player.draw()
+        self.object_renderer.draw()
+        self.weapons.draw()
 
     def check_events(self):
         for event in pg.event.get():
             if event.type == pg.QUIT or (event.type == pg.KEYDOWN and event.key == pg.K_ESCAPE):
                 pg.quit()
                 sys.exit()
+            self.player.shot_event(event)
 
     def run(self):
         while True:

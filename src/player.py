@@ -13,6 +13,14 @@ class Player:
         self.game = game
         self.x, self.y = PLAYER_POS
         self.angle = PLAYER_ANGLE
+        self.shotsfired = False
+
+    def shot_event(self, event):
+        if event.type == pg.MOUSEBUTTONDOWN:
+            if event.button == 1 and not self.shotsfired and not self.game.weapons.reloading:
+                self.shotsfired = True
+                self.game.weapons.reloading = True
+
 
     def movement(self):
         sin_a = math.sin(self.angle)
@@ -21,6 +29,7 @@ class Player:
         speed = PLAYER_SPEED * self.game.delta_time
         speed_sin = speed * sin_a
         speed_cos = speed * cos_a
+        self.shotsfired = False
 
         keys = pg.key.get_pressed()
         if keys[pg.K_w]:
