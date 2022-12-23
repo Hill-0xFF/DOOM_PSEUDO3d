@@ -8,6 +8,7 @@ from raycasting import *
 from sprite import *
 from object_handler import *
 from weapons import *
+from sound_effect import *
 
 class Game:
     def __init__(self):
@@ -27,6 +28,7 @@ class Game:
         # self.animatedSprite = AnimatedSprite(self)
         self.object_handler = ObjectHandler(self)
         self.weapons = Weapons(self)
+        self.sound = Sound(self)
 
     def update(self):
         self.player.update()
