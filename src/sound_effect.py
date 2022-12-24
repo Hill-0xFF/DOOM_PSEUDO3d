@@ -6,4 +6,4 @@ class Sound:
         pg.mixer.init()
         self.path = 'src/resources/sound/'
         self.shotgun_sound = pg.mixer.Sound(self.path + 'shotgun.wav')
-        
+        self.smg_sound = pg.mixer.Sound(self.path + 'smg.wav')

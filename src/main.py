@@ -8,6 +8,7 @@ from raycasting import *
 from sprite import *
 from object_handler import *
 from weapons import *
+from weapon_smg import *
 from sound_effect import *
 
 class Game:
@@ -28,6 +29,7 @@ class Game:
         # self.animatedSprite = AnimatedSprite(self)
         self.object_handler = ObjectHandler(self)
         self.weapons = Weapons(self)
+        # self.smg = SMG(self)
         self.sound = Sound(self)
 
     def update(self):
@@ -35,8 +37,11 @@ class Game:
         self.raycasting.update()
         # self.static_sprite.update()
         # self.animatedSprite.update()
+        
         self.object_handler.update()
         self.weapons.update()
+        # self.smg.update()
+
         pg.display.flip()
         self.delta_time = self.clock.tick(FPS)
         pg.display.set_caption(f'Hill0x77 - DOOM: PSEUDO3d {self.clock.get_fps() :.1f}')
@@ -48,6 +53,7 @@ class Game:
         # self.player.draw()
         self.object_renderer.draw()
         self.weapons.draw()
+        # self.smg.draw()
 
     def check_events(self):
         for event in pg.event.get():
